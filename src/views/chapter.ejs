@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%=chap.name%> truyện tranh tiếng Việt</title>
+		<meta charset="utf-8">
+		<meta name="fragment" content="!">
+		<link rel="shortcut icon" href="http://truyen47.com/public/imgs/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="keywords" content="<%=chap.name%>, <%=chap.name%> tiếng việt, đọc truyện <%=chap.name%>, truyện tranh, truyen tranh, truyen tranh online">
+		<meta name="description" content="Đọc truyện tranh <%=chap.name%> Tiếng Việt được cập nhật sớm nhất chỉ có tại website đọc truyện tranh siêu nhanh Truyen47.com" />
+
+		<meta property="og:url"           content="http://truyen47.com/doc-truyen/<%=chap.slug%>" />
+		<meta property="og:type"          content="book" />
+		<meta property="og:title"         content="<%=chap.name%>" />
+		<meta property="og:description"   content="<%=post.summary%>" />
+		<meta property="og:image"         content="http://truyen47.com/public/images/<%=post.name%>.jpg" />
+
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/public/css/stylesheet.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/speakingurl/9.0.0/speakingurl.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#top').click(function () {
+					$('html, body').animate({scrollTop: 0}, 500);
+				});
+				
+				$('.select-chapter').change(function () {
+				window.open($(this).val(), "_self");
+				});
+				})
+		</script>
+		<style type="text/css">
+		body{
+			background-color: #222;
+		}
+		@media screen and (max-width: 766px) {
+			.container{
+				padding: 0px;
+			}
+		}
+		</style>
+	</head>
+	<body ng-app="myApp">
+		<!-- Modules -->
+		<script src="/public/js/app.js"></script>
+		<!-- <div class="container-fluid"> -->
+		<div class="container">
+			
+			<%- include('includes/header.ejs', {logo : "logochap.png"})%>
+			<div class="col-sm-12 col-md-12">
+				<div class="panel panel-default">
+					<ul class="breadcrumb details"  style="border-bottom: 1px solid #ddd;">
+						<li><a href="/">Trang chủ</a></li>
+						<li><a ng-href="/<%=post.slug%>"><%=post.name%></a></li>
+						<li class="active"><%=chap.name%></li>
+					</ul>
+					<div class="panel-body">
+						<div>
+							<h2><%=chap.name%></h2>
+							<div class="form-group form-inline">
+								<select class="form-control select-chapter">
+									<%var chap_of_post = post.chapter;%>
+									<%var num;%>
+									<%for(var i = chap_of_post.length-1; i>=0; i--){%>
+									<option value='/doc-truyen/<%=chap_of_post[i].slug%>' <%if(chap_of_post[i].slug == chap.slug){ num = i;%> <%='selected'%> <%};%>>
+										<%=chap_of_post[i].name%>
+									</option>
+									<%};%>
+								</select>
+								<%if(num>0){%><a href="/doc-truyen/<%=chap_of_post[num-1].slug%>" class="btn btn-info" role="button">
+								<%='Chap trước'%></a>
+								<%}%>
+								<%if(num<chap_of_post.length-1){%><a href="/doc-truyen/<%=chap_of_post[num+1].slug%>" class="btn btn-info" role="button">
+								<%='Chap sau'%></a>
+								<%}%>
+							</div>
+						</div>
+					<div class="fb-like" data-href="http://truyen47.com/doc-truyen/<%=chap.slug%>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+					</div>
+					
+					<div class="panel-body">
+						<p>Bạn đang <a href="/">Đọc Truyện Tranh</a> <%=chap.name%>. Khi xem truyện <%=chap.name%> bạn có thể nhấn phím F11 bật chế độ toàn màn hình để đọc tốt hơn.<br></p>
+						<p>Bạn có thể theo dõi truyện mà không cần đăng nhập</p>
+						<p>Thường xuyên ghé thăm <a href="http://truyen47.com">Truyen47.com</a> để đọc những chương truyện mới nhất các bạn nhé. Chúc các bạn đọc truyện vui vẻ !
+						</p>
+					</div>
+				</div>
+
+				<!-- Qc -->
+				<div class="col-sm-12">
+					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+					<!-- Truyen47.com -->
+					<ins class="adsbygoogle"
+					     style="display:inline-block;width:320px;height:100px"
+					     data-ad-client="ca-pub-8622385338178881"
+					     data-ad-slot="9394231851"></ins>
+					<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+					</script>
+				</div>
+
+				<div id="vungdoc">
+					<%var chap_content = chap.content;%>
+					<%var len_chap = chap_content.length;%>
+					<%for(var i =0; i< len_chap; i++){%>
+					<img src="<%=chap.content[i]%>" alt="<%=chap.name%> trang <%=i+1%>" class="img-thumbnail .img-responsive" >
+					<%};%>
+				</div>
+				<div class="panel panel-default">
+					<ul class="breadcrumb details"  style="border-bottom: 1px solid #ddd;">
+						<li><a href="/">Trang chủ</a></li>
+						<li><a ng-href="/<%=post.slug%>"><%=post.name%></a></li>
+						<li class="active"><%=chap.name%></li>
+					</ul>
+					<div class="panel-body">
+						<div>
+							<div class="form-group form-inline">
+								<select class="form-control select-chapter">
+									<%var chap_of_post = post.chapter;%>
+									<%var num;%>
+									<%for(var i = chap_of_post.length-1; i>=0; i--){%>
+									<option value='/doc-truyen/<%=chap_of_post[i].slug%>' <%if(chap_of_post[i].slug == chap.slug){ num = i;%> <%='selected'%> <%};%>>
+										<%=chap_of_post[i].name%>
+									</option>
+									<%};%>
+								</select>
+								<%if(num>0){%><a href="/doc-truyen/<%=chap_of_post[num-1].slug%>" class="btn btn-info" role="button">
+								<%='Chap trước'%></a>
+								<%}%>
+								<%if(num<chap_of_post.length-1){%><a href="/doc-truyen/<%=chap_of_post[num+1].slug%>" class="btn btn-info" role="button">
+								<%='Chap sau'%></a>
+								<%}%>
+							</div>
+						</div>
+						<div class="fb-like" data-href="http://truyen47.com/doc-truyen/<%=chap.slug%>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+						<br>
+						<p>Bạn đang đọc <strong><%=chap.name%></strong> tại website <a href="http://truyen47.com">truyện tranh online tiếng việt Truyen47.com</a>. Trong quá trình đọc truyện bạn có thể sử dụng chức năng theo dõi truyện để lưu lại những bộ truyện yêu thích mà không cần đăng nhập, chức năng báo lỗi nếu chapter bị hỏng để ban quản trị fix chapter nhanh nhất.
+						</p>
+						<br>
+						<p>Nếu bạn tham gia thảo luận sau khi đọc truyện, xin vui lòng không chửi bới, xúc phạm người khác, nhóm dịch hoặc hối chapter mới nhé.</p>
+
+					</div>
+					
+
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="fb-comments" data-href="https://truyen47.com/doc-truyen/<%=chap.slug%>" data-numposts="10" width="100%"></div>
+					</div>
+					
+				</div>
+			</div>
+			<div id="top">
+			</div>
+			<%- include('includes/footer.ejs')%>
+		</div>
+		<!-- Controllers -->
+		<script src="/public/js/Controller/genresController.js"></script>
+		
+		<!-- Filters -->
+		<script src="/public/js/Filters/slugFilter.js"></script>
+	</body>
+</html>

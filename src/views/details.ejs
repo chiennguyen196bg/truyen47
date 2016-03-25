@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<title><%=post.name%> - truyện tranh mới nhất tiếng Việt</title>
+		<meta charset="utf-8">
+		<meta name="fragment" content="!">
+		<link rel="shortcut icon" href="/public/imgs/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="keywords" content="<%=post.name%>, <%=post.name%> tiếng việt, đọc truyện <%=post.name%>, truyen tranh, truyện tranh, truyen tranh online">
+
+		<meta name="description" content="Đọc truyện tranh <%=post.name%> tiếng Việt chap mới nhất tại website đọc truyện tranh manga online hay nhất Truyen47.com" />
+
+		<meta property="og:url"           content="http://truyen47.com/<%=post.slug%>" />
+		<meta property="og:type"          content="book" />
+		<meta property="og:title"         content="<%=post.name%> truyện tranh - Truyen47.com" />
+		<meta property="og:description"   content="<%=post.summary%>" />
+		<meta property="og:image"         content="http://truyen47.com/pubic/images/<%=post.slug%>.jpg" />
+
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/public/css/stylesheet.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/speakingurl/9.0.0/speakingurl.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				// var mySlug = createSlug();
+				// console.log(getSlug("NGuyễn Minh Chiến "));
+			})
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<!-- Modules -->
+		<script src="/public/js/app.js"></script>
+		<!-- <div class="container-fluid"> -->
+		<div class="container">
+			
+			<%- include('includes/header.ejs', {logo : "logo.png"})%>
+			
+			<%- include('includes/box-left.ejs')%>
+			
+			<div id="detail" class="col-sm-12 col-md-6 box" ng-controller="followController">
+				<div class="panel panel-default">
+					<div>
+						<ul class="breadcrumb details"  style="border-bottom: 1px solid #ddd;">
+							<li><a href="/">Trang chủ</a></li>
+							<li class="active"><%=post.name%></li>
+						</ul>
+					</div>
+					<div class="panel-body">
+						<div class="col-xs-10 col-sm-4 col-md-4 pull-left" style="text-align: center;">
+							<img src="/public/images/<%=post.slug%>.jpg" style="margin:3px auto;" alt="<%=post.name%> - Truyen47.com">
+							<button ng-hide="check" ng-click="follow()" type="button" class="btn btn-primary btn-block">Theo dõi truyện</button>
+						</div>
+						<div class="col-xs-12 col-sm-8 col-md-8 pull-right">
+							<h2><%=post.name%></h2>
+							<p>Tác giả: <%- post.author.join(', ')%></p>
+							<p>Thể loại: <%for(var i =0 ; i< genres.length; i++){%>
+								<a href="/danh-sach/<%=genres_slug[i]%>"><%=genres[i]%></a>
+								<%}%>
+							</p>
+							<p>Trạng thái: <%=post.status%></p>
+							<div class="fb-like" data-href="http://truyen47.com/<%=post.slug%>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+							<p>Nội dung:
+								<button data-toggle="collapse" data-target="#demo" class="pull-right" ng-click="count = count + 1" ng-init="count=0">
+									<span ng-if="count%2==0">Thu nhỏ</span>
+									<span ng-if="count%2==1">Xem thêm</span>
+								</button>
+							</p>
+							<div id="demo" class="collapse in">
+								<p><%=post.summary%></p>
+								<%if (post.summary == ""){%>
+									<p>Truyện tranh <strong><%=post.name%></strong> nội dung đang được cập nhật . Ghé thăm Truyen47.com để được đọc các chương mới nhất của <strong><%=post.name%></strong></p>
+								<%};%>
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>
+				<div  class="panel panel-default">
+					<div class="panel-heading">
+						Danh sách chương
+					</div>
+					<div id="chap" class="panel-body">
+						<%var chap = post.chapter%>
+						<%for(var i=chap.length -1 ; i>=0; i--){%>
+						<p><a href="/doc-truyen/<%=chap[i].slug%>"><%=chap[i].name%></a>
+							<%myDate = new Date(1000*chap[i].id);%>
+							<span class="pull-right" style="margin:0 3px;"><%-myDate.toLocaleDateString("vn-VN")%></span>
+						</p>
+						<%}%>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="fb-comments" data-href="https://truyen47.com/<%=post.slug%>" data-numposts="10"></div>
+					</div>
+				</div>
+				</div><!-- end box center-->
+				
+				<%- include('includes/box-right.ejs')%>
+				<%- include('includes/footer.ejs')%>
+			</div>
+			<!-- Controllers -->
+			<script src="/public/js/Controller/genresController.js"></script>
+			<script type="text/javascript">
+			app.controller("followController", function($scope, $window){
+				$scope.check = false;
+				$scope.slugOfItem = <%-JSON.stringify(post.slug)%>;
+				if(!($window.localStorage.followedItems)){
+					$window.localStorage.followedItems = "[]";
+				}
+
+				
+				$scope.tempList = JSON.parse($window.localStorage.followedItems);
+
+				for (var i = 0; i < $scope.tempList.length; i++) {
+					if ($scope.tempList[i] == $scope.slugOfItem){
+						$scope.check = true;
+						break;
+					}
+				}
+
+				$scope.follow = function(){
+					$scope.check = true;
+					$scope.tempList = JSON.parse($window.localStorage.followedItems);
+					$scope.tempList.push($scope.slugOfItem);
+					$window.localStorage.followedItems = JSON.stringify($scope.tempList);
+				}
+
+			});
+
+			</script>
+			<!-- Filters -->
+			<script src="/public/js/Filters/slugFilter.js"></script>
+		</body>
+	</html>

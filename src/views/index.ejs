@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<title>Đọc Truyện Tranh Online tiếng Việt hay nhất - Truyen47.com</title>
+		<meta charset="utf-8">
+		<meta name="fragment" content="!" />
+		<link rel="shortcut icon" href="/public/imgs/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="keywords" content="truyen tranh, truyện tranh, truyen tranh online, truyện tranh online, doc truyen tranh, đọc truyện tranh">
+		<!-- /SEO Ultimate -->
+		<meta name="description" content="Đọc Truyện Tranh Online và Manga 18+ Nhật Bản tiếng Việt mới nhất, hay nhất, hot nhất 2016, full có màu được tổng hợp 24h miễn phí tại website Truyen47.com" />
+		
+		<meta property="og:url"           content="http://truyen47.com" />
+		<meta property="og:type"          content="website" />
+		<meta property="og:title"         content="Truyen47.com - Đọc Truyện Tranh Online tiếng Việt hay nhất" />
+		<meta property="og:description"   content="Đọc Truyện Tranh Online và Manga 18+ Nhật Bản tiếng Việt mới nhất, hay nhất, hot nhất 2016, full có màu được tổng hợp 24h miễn phí tại website Truyen47.com" />
+		<meta property="og:image"         content="http://truyen47.com/public/imgs/logo.png" />
+
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/public/css/stylesheet.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/speakingurl/9.0.0/speakingurl.min.js"></script>
+		<script>
+			$(document).ready(function(){
+			
+			});
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<!-- Modules -->
+		<script src="/public/js/app.js"></script>
+		<!-- <div class="container-fluid"> -->
+		<div class="container">
+			<%- include('includes/header.ejs', {logo : "logo.png"})%>
+			<div class="col-sm-12 col-md-8 box">
+				<div class="panel panel-default" ng-controller="randomController">
+					<div class="panel-heading"><strong>Giới thiệu truyện</strong></div>
+					<div class="panel-body">
+						<div style="float:left" class ="col-xs-4">
+							<a ng-href="/{{itemRandom.slug}}"><img ng-src="/public/images/{{itemRandom.slug}}.jpg" width="100%"></a>
+						</div>
+						<h4><a ng-href="/{{itemRandom.slug}}">{{itemRandom.name}}</a></h4>
+						<p style="padding:3px;">Thể loại: <span ng-repeat="genre in itemRandom.genres">
+							<a ng-href="/danh-sach/the-loai/{{genre | slug}}">{{genre}}</a> - </span></p>
+						<p>Nội dung: <br></p>
+						<p>{{itemRandom.summary}}</p>
+						
+						<p><a ng-href="/doc-truyen/{{itemRandom.lastChap.name | slug}}">{{itemRandom.lastChap.name}}</a></p>
+					</div>
+				</div>
+			</div>
+			
+			<div id="fanpage" class="col-sm-12 col-md-4 hidden-xs hidden-sm" style="padding-right=0;">
+				<div class="panel panel-default">
+					<!-- <div class="panel-heading"><strong></strong></div> -->
+					<div class="panel-body">
+						<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+						<!-- Truyen Tranh - Truyen47.com -->
+						<ins class="adsbygoogle"
+						     style="display:block"
+						     data-ad-client="ca-pub-8622385338178881"
+						     data-ad-slot="9533832652"
+						     data-ad-format="auto"></ins>
+						<script>
+						(adsbygoogle = window.adsbygoogle || []).push({});
+						</script>
+					</div>
+				</div>
+			</div>
+			
+
+			<%- include('includes/sideshow.ejs')%>
+			<%- include('includes/box-left.ejs')%>
+			
+			<div class="col-sm-12 col-md-6 box" ng-controller="postController">
+				<div class="panel panel-default panel-tabs-pills">
+					<div class="panel-heading">
+						<ul class="nav nav-pills">
+							<li class="active">
+								<a data-toggle="pill" href="#moi_update"><strong>Mới Update</strong></a>
+							</li>
+							<li>
+								<a data-toggle="pill" href="#hot_update" ng-click="clickHot()"><strong>Hot Update</strong></a>
+							</li>
+							<li>
+								<a data-toggle="pill" href="#moi_dang" ng-click="clickNew()"><strong>Mới Đăng</strong></a>
+							</li>
+						</ul>
+					</div>
+					<div class="panel-body">
+						<div class="tab-content">
+							<div id="moi_update" class="tab-pane fade in active">
+								<%for(var i = 0; i < posts.length; i++){%>
+								<div class = "item_center">
+									<div>
+										<a ng-href="/<%=posts[i].slug%>" title="<%=posts[i].name%>">
+											<img height="100px" width="80px" ng-src="/public/images/<%=posts[i].slug%>.jpg" alt="<%=posts[i].name%> - Truyen47.com">
+										</a>
+									</div>
+									<div>
+										<a ng-href="/<%=posts[i].slug%>" title="<%=posts[i].name%>">
+											<h4><%=posts[i].name%></h4>
+										</a>
+										<i style="font-size:11px">{{(post.lastChap.id)*1000 | date: 'dd-MM-yyyy h:mma'}}</i>
+										<p>Thể loại: 
+											<span ng-repeat="genre in post.genres"> <a ng-href="/danh-sach/the-loai/{{genre | slug}}">{{genre}}</a> - </span>
+										</p>
+										<a ng-href="/doc-truyen/{{post.lastChap.slug}}">
+											<span>{{post.lastChap.name}}</span>
+										</a>
+									</div>
+								</div>
+								<%};%>
+								<div class = "button-page">
+									<a href="/danh-sach/moi-update" class="btn btn-info pull-right" role="button">
+										Xem tiếp
+									</a>
+								</div>
+							</div>
+							<div id="hot_update" class="tab-pane fade">
+								<div class = "item_center" ng-repeat="post in postsHot">
+									<%- include('includes/item_post.ejs')%>
+								</div>
+								<div class = "button-page">
+									<a href="/danh-sach/hot-update" class="btn btn-info pull-right" role="button">
+										Xem tiếp
+									</a>
+								</div>
+							</div>
+							<div id="moi_dang" class="tab-pane fade">
+								<div class = "item_center" ng-repeat="post in postsNew">
+									<%- include('includes/item_post.ejs')%>
+								</div>
+								<div class = "button-page">
+									<a href="/danh-sach/moi-dang" class="btn btn-info pull-right" role="button">
+										Xem tiếp
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div><!-- end box center-->
+				<%- include('includes/box-right.ejs')%>
+				<%- include('includes/footer.ejs')%>
+			</div>
+			
+			<!-- Controllers -->
+			<script src="/public/js/Controller/postController.js"></script>
+			<script src="/public/js/Controller/randomController.js"></script>
+			<script src="/public/js/Controller/genresController.js"></script>
+			<!-- Filters -->
+			<script src="/public/js/Filters/slugFilter.js"></script>
+			<!-- Tooltip -->
+			
+			
+		</body>
+	</html>

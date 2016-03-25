@@ -1,0 +1,85 @@
+<div class="col-sm-12 col-md-3 box left-box">
+	<div id="truyen-theo-doi" class= "col-sm-12 col-md-12" ng-controller="followListController">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<strong>Truyện Theo Dõi</strong>
+				<button class="pull-right" ng-click="showFollowedList()">Show</button>
+			</div>
+			<div class="panel-body" style="max-height: 400px; overflow: auto;">
+				<div class="item_right" ng-repeat="item in followedList">
+					<div style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+						<a ng-href="/{{item.slug}}" title="{{item.name}}">
+							<h5 style="text-overflow: ellipsis; white-space: nowrap;overflow: hidden">{{item.name}}</h5>
+						</a>
+						
+						
+						<span>
+							<a ng-href="/doc-truyen/{{item.lastChap.slug}}" title="{{item.lastChap.name}}">{{item.lastChap.name}}</a>
+						</span>
+					</div>
+					<div class="pull-right">
+						<button class="btn btn-danger pull-right" ng-click="unfollow(item.slug)">Xóa</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id = "the-loai" class= "col-sm-6 col-md-12 hidden-sm hidden-xs">
+		<div  class="panel panel-default">
+			<div class="panel-heading"><strong>Thể loại</strong></div>
+			<div class="panel-body" ng-controller="genresController">
+				<div class="table-responsive">
+					<table class="table table-striped theloai">
+						<tbody>
+							<tr ng-repeat="itemtr in itemGenres1">
+								<td ng-repeat="item in itemtr">
+									<a href="/danh-sach/the-loai/{{item | slug}}">{{item}}</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	</div><!--box left-->
+	<!-- Controllers -->
+	<script type="text/javascript">
+	app.controller("followListController", function($scope, $window, $http){
+		if(!($window.localStorage.followedItems)){
+			$window.localStorage.followedItems = "[]";
+		}
+
+		$scope.showFollowedList = function(){
+			if($window.localStorage.followedItems != "[]"){
+				var data = JSON.parse($window.localStorage.followedItems);
+				$http.post("/json/follow", {data : data}, {cache: true})
+					.then(function(response){
+						$scope.followedList = response.data;
+					});
+			}
+			else {
+				$window.alert("Bạn không theo dõi truyện nào!");
+			}
+		};
+
+		$scope.unfollow = function(slug){
+			$window.alert("Đã Xóa");
+			$scope.tempList = JSON.parse($window.localStorage.followedItems);
+			var index = $scope.tempList.indexOf(slug);
+			if(index > -1){
+				$scope.tempList.splice(index, 1);
+				$window.localStorage.followedItems = JSON.stringify($scope.tempList);
+			}
+			for(var i = 0; i < $scope.followedList.length; i++){
+				if ($scope.followedList[i].slug == slug){
+					$scope.followedList.splice(i, 1);
+					break;
+				}
+			}
+		};
+	});
+	</script>

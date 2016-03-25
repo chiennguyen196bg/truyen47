@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Danh sách truyện <%=title%> - Truyen47.com</title>
+		<meta charset="utf-8">
+		<meta name="fragment" content="!">
+		<link rel="shortcut icon" href="http://truyen47.com/public/imgs/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<meta name="keywords" content="truyen tranh <%=title%>, truyện tranh <%=title%>, truyen tranh <%=title%> online, truyện tranh <%=title%> online, doc truyen tranh <%=title%>, đọc truyện tranh <%=title%>">
+		<!-- /SEO Ultimate -->
+		<meta name="description" content="Đọc Truyện Tranh <%=title%> Online tiếng Việt mới nhất, hay nhất, hot nhất 2016, full có màu được tổng hợp 24h miễn phí tại website Truyen47.com" />
+		
+		<meta property="og:url"           content="http://truyen47.com" />
+		<meta property="og:type"          content="website" />
+		<meta property="og:title"         content="Truyen47.com - Đọc Truyện Tranh Online tiếng Việt hay nhất" />
+		<meta property="og:description"   content="Đọc Truyện Tranh <%=title%> Online tiếng Việt mới nhất, hay nhất, hot nhất 2016, full có màu được tổng hợp 24h miễn phí tại website Truyen47.com" />
+
+
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/public/css/stylesheet.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/speakingurl/9.0.0/speakingurl.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				// var mySlug = createSlug();
+				// console.log(getSlug("NGuyễn Minh Chiến "));
+			})
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<!-- Modules -->
+		<script src="/public/js/app.js"></script>
+		<!-- <div class="container-fluid"> -->
+		<div class="container">
+			
+			<%- include('includes/header.ejs', {logo : "logo.png"})%>
+			
+			<%- include('includes/box-left.ejs')%>
+			<div class="col-sm-12 col-md-6 box" ng-controller="listController">
+				<div class="panel panel-default">
+					<div>
+						<ul class="breadcrumb details"  style="border-bottom: 1px solid #ddd;">
+							<li><a href="/">Trang chủ</a></li>
+							<li class="active"><%=title%> <span ng-if="number>1">trang {{number}}</span></li>
+						</ul>
+					</div>
+					<div class="panel-body">
+						<div ng-if="leng == 0">
+							<p>Đã hết hoặc không có mục bạn yêu cầu à :))) thông ass :))</p>
+						</div>
+						<div class = "item_center" ng-repeat="post in postList">
+							<%- include('includes/item_post.ejs')%>
+						</div>
+						<div class = "button-page">
+							<a ng-if="number > 1" href="/danh-sach/<%=name%>/page/{{number-1}}" class="btn btn-info pull-left" role="button">
+								Trang trước
+							</a>
+							<a ng-if="leng == 15" ng-href="/danh-sach/<%=name%>/page/{{number+1}}" class="btn btn-info pull-right" role="button">
+								Xem tiếp
+							</a>
+						</div>
+					</div>
+				</div>
+				</div><!-- end box center-->
+				
+				<%- include('includes/box-right.ejs')%>
+				<%- include('includes/footer.ejs')%>
+			</div>
+			<!-- Controllers -->
+			<script src="/public/js/Controller/genresController.js"></script>
+			<script type="text/javascript">
+				app.controller('listController', function($scope) { 
+					$scope.postList = <%-JSON.stringify(post)%>;
+					$scope.leng = $scope.postList.length;
+					$scope.number = <%=number%>;
+				});
+			</script>
+			<!-- Filters -->
+			<script src="/public/js/Filters/slugFilter.js"></script>
+		</body>
+	</html>

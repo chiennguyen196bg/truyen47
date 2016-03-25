@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Có lỗi xảy ra</title>
+		<meta charset="utf-8">
+		<meta name="fragment" content="!">
+		<link rel="shortcut icon" href="http://truyen47.com/public/imgs/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/public/css/stylesheet.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/speakingurl/9.0.0/speakingurl.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				// var mySlug = createSlug();
+				// console.log(getSlug("NGuyễn Minh Chiến "));
+			})
+		</script>
+	</head>
+	<body ng-app="myApp">
+		<!-- Modules -->
+		<script src="/public/js/app.js"></script>
+		<!-- <div class="container-fluid"> -->
+		<div class="container">
+			
+			<%- include('includes/header.ejs', {logo : "logo.png"})%>
+			
+			<%- include('includes/box-left.ejs')%>
+			
+			<div class="col-sm-12 col-md-6 box">
+				<div class="panel panel-default">
+					<div>
+						<ul class="breadcrumb details"  style="border-bottom: 1px solid #ddd;">
+							<li><a href="/">Trang chủ</a></li>
+							<li class="active">Có lỗi xảy ra</li>
+						</ul>
+					</div>
+					<div class="panel-body">
+						<p><%=err%></p>						
+					</div>
+				</div>
+			</div><!-- end box center-->
+				
+				<%- include('includes/box-right.ejs')%>
+			</div>
+			<!-- Controllers -->
+			<script src="/public/js/Controller/genresController.js"></script>
+			<!-- Filters -->
+			<script src="/public/js/Filters/slugFilter.js"></script>
+		</body>
+	</html>

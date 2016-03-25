@@ -1,0 +1,16 @@
+<div id='side-show' class="col-sm-12 col-md-12 hidden-xs hidden-sm box" ng-controller="sideController">
+	<div class="panel panel-default">
+		<div class="panel-heading"><strong>Tiêu điểm</strong></div>
+		<div class="panel-body">
+			<div class="wrap-side">
+				<div class="item_side" ng-repeat="item in itemSide">
+					<a ng-href="/{{item.slug}}" title="{{item.name}}">
+						<img ng-src="/public/images/{{item.slug}}.jpg" alt="{{item.name}} - Truyen47.com">
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Controller -->
+<script src="/public/js/Controller/sideController.js"></script>

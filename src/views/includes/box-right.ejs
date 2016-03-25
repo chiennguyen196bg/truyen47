@@ -1,0 +1,75 @@
+<div class="col-sm-12 col-md-3 box" ng-controller="topViewController">
+	<div class="panel panel-default panel-tabs-pills">
+		<div class="panel-heading">
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a data-toggle="tab" href="#top_tuan" ng-click="clickTopTuan()"><strong>Top Tuần</strong></a>
+				</li>
+				<li><a data-toggle="tab" href="#top_thang" ng-click="clickTopThang()"><strong>Top Tháng</strong></a></li>
+				
+			</ul>
+		</div>
+		<div class="panel-body">
+			<div class="tab-content">
+				<div id="top_tuan" class="tab-pane fade in active">
+					<br>
+					<div class="item_right" ng-repeat="item in itemTopTuan">
+						<a ng-href="/{{item.slug}}" title="{{item.name}}">
+							<img height="50px" width="50px" ng-src="/public/images/{{item.slug}}.jpg" alt="{{item.name}} - Truyen47.com">
+						</a>
+						<div style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+							<a ng-href="/{{item.slug}}" title="{{item.name}}">
+								<h5 style="text-overflow: ellipsis; white-space: nowrap;overflow: hidden">{{item.name}}</h5>
+							</a>
+							<span>
+								<a ng-href="/doc-truyen/{{item.lastChap.slug}}" title="{{item.lastChap.name}}">{{item.lastChap.name}}</a>
+							</span>
+						</div>
+					</div>
+					
+					<div class = "button-page">
+						<a href="/danh-sach/top-tuan" class="btn btn-info pull-right" role="button">
+							Xem tiếp
+						</a>
+					</div>
+				</div>
+				<div id="top_thang" class="tab-pane fade">
+					<br>
+					<div class="item_right" ng-repeat="item in itemTopThang">
+						<a ng-href="/{{item.slug}}" title="{{item.name}}">
+							<img height="50px" width="50px" ng-src="/public/images/{{item.slug}}.jpg" alt="{{item.name}} - Truyen47.com">
+						</a>
+						<div style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">
+							<a ng-href="/{{item.slug}}" title="{{item.name}}">
+								<h5 style="text-overflow: ellipsis; white-space: nowrap;overflow: hidden">{{item.name}}</h5>
+							</a>
+							<span>
+								<a ng-href="/doc-truyen/{{item.lastChap.slug}}" title="{{item.lastChap.name}}">{{item.lastChap.name}}</a>
+							</span>
+						</div>
+					</div>
+					
+					<div class = "button-page">
+						<a href="/danh-sach/top-thang" class="btn btn-info pull-right" role="button">
+							Xem tiếp
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="newpost" class="panel panel-default hidden-sm hidden-xs" ng-controller="newPostController">
+		<div class="panel-heading"><strong>Truyện Mới Đăng</strong></div>
+		<div class="panel-body">
+			<div class="item_new col-sm-4" ng-repeat="item in itemNew">
+				<a ng-href="{{item.name | slug}}" title="{{item.name}}">
+					<img ng-src="/public/images/{{item.slug}}.jpg" alt="{{item.name}} - Truyen47.com">
+				</a>
+			</div>
+		</div>
+	</div>
+	</div><!--box right-->
+	<!-- Controller -->
+	<script src="/public/js/Controller/topViewController.js"></script>
+	<script src="/public/js/Controller/newPostController.js"></script>
+	

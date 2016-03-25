@@ -1,0 +1,16 @@
+<div>
+	<a ng-href="/{{post.slug}}" title="{{post.name}}">
+		<img height="100px" width="80px" ng-src="/public/images/{{post.slug}}.jpg" alt="{{post.name}} - Truyen47.com">
+	</a>
+</div>
+<div>
+	<a ng-href="/{{post.slug}}" title="{{post.name}}">
+		<h4>{{post.name}}</h4>
+	</a>
+	<i style="font-size:11px">{{(post.lastChap.id)*1000 | date: 'dd-MM-yyyy h:mma'}}</i>
+	<p>Thể loại: <span ng-repeat="genre in post.genres"> <a ng-href="/danh-sach/the-loai/{{genre | slug}}">{{genre}}</a> - </span></p>
+	<a ng-href="/doc-truyen/{{post.lastChap.slug}}">
+		<span>{{post.lastChap.name}}</span>
+		<!-- <span class="badge"></span> -->
+	</a>
+</div>
