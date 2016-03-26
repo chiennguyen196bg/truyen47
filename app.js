@@ -52,11 +52,7 @@ app.get('/', function(req, res){
         .sort('-lastChap.id')
         .select('name slug lastChap genres')
         .exec(function(err, posts){
-            if(err){
-                res.send('err');
-            } else {
-                res.render('index.ejs',{posts: posts});
-            }
+            res.render('index.ejs',{posts: posts});
         });
    
 });
