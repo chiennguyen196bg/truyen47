@@ -56,7 +56,7 @@ var router = function(){
 	router_danhsach.route('/the-loai/:slug')
 		.get(function(req, res){
 			var slug = req.params.slug;
-			var realslug = reslug(slug);
+			var realName = reslug(slug);
 			var arg = {'genres.slug' : slug}
 			Post.find(arg)
 			.limit(15)
@@ -76,7 +76,7 @@ var router = function(){
 		.get(function(req, res){
 			var slug = req.params.slug;
 			var num = Number(req.params.num);
-			var realslug = reslug(slug);
+			var realName = reslug(slug);
 			var arg = {'genres.slug' : slug}
 			Post.find(arg)
 			.skip((num -1)*15)
