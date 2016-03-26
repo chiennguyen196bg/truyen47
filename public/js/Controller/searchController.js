@@ -8,6 +8,9 @@ app.controller('searchController', function($scope, $http) {
     			.then(function(response) {
         			$scope.itemSearch = response.data;
     			});
-        }, 500);
+        }, 100);
+        if($scope.data == ''){
+            $scope.itemSearch = underfined;
+        }
     };
 });
