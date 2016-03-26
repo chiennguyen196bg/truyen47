@@ -88,7 +88,7 @@ var router = function(){
 					res.render('404.ejs',{err : err});
 				}
 				else {
-					res.render('list.ejs',{posts : posts, number : num, slug : slug, title: realName});
+					res.render('list.ejs',{posts : posts, number : num, slug : slug, title: realName + ' - trang '+num});
 				}
 			});
 		});
