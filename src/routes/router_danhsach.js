@@ -86,7 +86,6 @@ var router = function(){
 			.exec(function(err, posts){
 				if (err) {
 					res.render('404.ejs',{err : err});
-					
 				}
 				else {
 					res.render('list.ejs',{posts : posts, number : num, slug : slug, title: realName});
