@@ -101,13 +101,13 @@ var router = function(){
 			.limit(15)
 			.sort(resultConvert.sort)
 			.select('name genres lastChap.name lastChap.id thumb lastChap.date _id slug lastChap.slug')
-			.exec(function(err, post){
+			.exec(function(err, posts){
 				if (err) {
 					res.render('404.ejs',{err : err});
 					
 				}
 				else {
-					res.render('list.ejs',{post : post, number : 1, name : name, title: resultConvert.realName});
+					res.render('list.ejs',{posts : posts, number : 1, name : name, title: resultConvert.realName});
 				}
 			});
 		});
@@ -121,13 +121,13 @@ var router = function(){
 			.limit(15)
 			.sort(resultConvert.sort)
 			.select('name genres lastChap.name lastChap.id thumb lastChap.date _id slug lastChap.slug')
-			.exec(function(err, post){
+			.exec(function(err, posts){
 				if (err) {
 					res.render('404.ejs',{err : err});
 					
 				}
 				else {
-					res.render('list.ejs',{post : post, number : num, name : name, title: resultConvert.realName});
+					res.render('list.ejs',{posts : posts, number : num, name : name, title: resultConvert.realName});
 				}
 			});
 		});
