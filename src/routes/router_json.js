@@ -53,7 +53,7 @@ var router = function(){
 	router_json.route('/get-all-genres')
 		.get(function(req, res){
 			Post.distinct('genres')
-				.sort('genres.name')
+				.sort({genres.name : 1})
 				.exec(function(err, results){
 					if(err){
 			            res.send('err');
