@@ -68,7 +68,13 @@ var router = function(){
 					
 				}
 				else {
-					res.render('list.ejs',{posts : posts, number : 1, slug : slug, title: realName});
+					res.render('list.ejs', {
+						posts : posts, 
+						number : 1, 
+						slug : slug, 
+						title: realName, 
+						link: '/the-loai'
+					});
 				}
 			});
 		});
@@ -88,7 +94,13 @@ var router = function(){
 					res.render('404.ejs',{err : err});
 				}
 				else {
-					res.render('list.ejs',{posts : posts, number : num, slug : slug, title: realName + ' - trang '+num});
+					res.render('list.ejs', {
+						posts : posts, 
+						number : num, 
+						slug : slug, 
+						title: realName + ' - trang '+num, 
+						link: '/the-loai'
+					});
 				}
 			});
 		});
@@ -107,7 +119,13 @@ var router = function(){
 					
 				}
 				else {
-					res.render('list.ejs',{posts : posts, number : 1, slug : name, title: resultConvert.realName});
+					res.render('list.ejs',{
+						posts : posts, 
+						number : 1, 
+						slug : name, 
+						title: resultConvert.realName, 
+						link: ''
+					});
 				}
 			});
 		});
@@ -127,7 +145,13 @@ var router = function(){
 					
 				}
 				else {
-					res.render('list.ejs',{posts : posts, number : num, slug : name, title: resultConvert.realName + ' - trang '+num});
+					res.render('list.ejs', {
+						posts : posts, 
+							number : num, 
+							slug : name, 
+							title: resultConvert.realName + ' - trang '+num, 
+							link: ''
+						});
 				}
 			});
 		});
