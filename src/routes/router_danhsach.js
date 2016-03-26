@@ -53,11 +53,11 @@ var convert = function(text){
 
 var router = function(){
 
-	router_danhsach.route('/the-loai/:name')
+	router_danhsach.route('/the-loai/:slug')
 		.get(function(req, res){
-			var name = req.params.name;
-			var realName = reslug(name);
-			var arg = {'genres' : realName}
+			var slug = req.params.slug;
+			var realslug = reslug(slug);
+			var arg = {'genres.slug' : slug}
 			Post.find(arg)
 			.limit(15)
 			.sort('-lastChap.id')
@@ -68,16 +68,16 @@ var router = function(){
 					
 				}
 				else {
-					res.render('list.ejs',{posts : posts, number : 1, name : name, title: realName});
+					res.render('list.ejs',{posts : posts, number : 1, slug : slug, title: realName});
 				}
 			});
 		});
-	router_danhsach.route('/the-loai/:name/page/:num')
+	router_danhsach.route('/the-loai/:slug/page/:num')
 		.get(function(req, res){
-			var name = req.params.name;
+			var slug = req.params.slug;
 			var num = Number(req.params.num);
-			var realName = reslug(name);
-			var arg = {'genres' : realName}
+			var realslug = reslug(slug);
+			var arg = {'genres.slug' : slug}
 			Post.find(arg)
 			.skip((num -1)*15)
 			.limit(15)
@@ -89,7 +89,7 @@ var router = function(){
 					
 				}
 				else {
-					res.render('list.ejs',{posts : posts, number : num, slug : name, title: realName});
+					res.render('list.ejs',{posts : posts, number : num, slug : slug, title: realName});
 				}
 			});
 		});
