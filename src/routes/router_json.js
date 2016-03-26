@@ -77,7 +77,7 @@ var router = function(){
 		});	
 	router_json.route('/search/:data')
 		.get(function(req, res){
-			Post.find({$text:{$search: req.params.data}})
+			Post.find({$name:{$regex : req.params.data, $options:"$i"}})
 			.exec(function(err, post){
 	            if(err){
 	                res.send('err');
