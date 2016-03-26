@@ -107,7 +107,7 @@ var router = function(){
 					
 				}
 				else {
-					res.render('list.ejs',{posts : posts, number : 1, name : name, title: resultConvert.realName});
+					res.render('list.ejs',{posts : posts, number : 1, slug : name, title: resultConvert.realName});
 				}
 			});
 		});
@@ -127,7 +127,7 @@ var router = function(){
 					
 				}
 				else {
-					res.render('list.ejs',{posts : posts, number : num, name : name, title: resultConvert.realName});
+					res.render('list.ejs',{posts : posts, number : num, slug : name, title: resultConvert.realName + ' - trang '+num});
 				}
 			});
 		});
