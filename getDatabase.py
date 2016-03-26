@@ -160,7 +160,10 @@ if __name__ == '__main__':
 		urlList = 'http://truyentranhmoi.com/danh-sach/page/%d/' % i
 		listUrlPage = crawl_list_urls(urlList)
 		print i
-		main(listUrlPage)
+		try:
+			main(listUrlPage)
+		except Exception, e:
+			print e
 		del urlList
 		del listUrlPage
 	gc.collect()
