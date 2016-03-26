@@ -99,9 +99,9 @@ app.controller('searchController', function($scope, $http) {
     			.then(function(response) {
         			$scope.itemSearch = response.data;
     			});
-        }, 100);
+        }, 500);
         if($scope.data == ''){
-            $scope.itemSearch = underfined;
+            $scope.itemSearch = false;
         }
     };
 });
