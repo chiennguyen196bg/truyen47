@@ -39,22 +39,27 @@
 			<%- include('includes/header.ejs', {logo : "logo.png"})%>
 			
 			<%- include('includes/box-left.ejs')%>
-			<div class="col-sm-12 col-md-6 box" ng-controller="listController">
+			<div class="col-sm-12 col-md-6 box">
 				<div class="panel panel-default">
 					<div>
 						<ul class="breadcrumb details"  style="border-bottom: 1px solid #ddd;">
 							<li><a href="/">Trang chủ</a></li>
-							<li class="active"><%=title%> <span ng-if="number>1">trang {{number}}</span></li>
+							<li class="active">
+								<%=title%> - 
+								<%if(number > 1){%>
+								<span>trang <%=number%></span>
+								<%};%>
+							</li>
 						</ul>
 					</div>
 					<div class="panel-body">
 						<%var leng = posts.length;%>
 						<%if(leng == 0){%>
-						<div ng-if="leng == 0">
+						<div>
 							<p>Đã hết hoặc không có mục bạn yêu cầu à :))) thông ass :))</p>
 						</div>
 						<%} else { %>
-						<div class = "item_center" ng-repeat="post in postList">
+						<div class = "item_center">
 							<%- include('includes/item_post_ejs.ejs', { posts: posts})%>
 						</div>
 						<%};%>
@@ -65,7 +70,7 @@
 							</a>
 							<%};%>
 							<%if(leng == 15){%>
-							<a ng-href="/danh-sach/<%=slug%>/page/<%- number+1 %>" class="btn btn-info pull-right" role="button">
+							<a href="/danh-sach/<%=slug%>/page/<%- number+1 %>" class="btn btn-info pull-right" role="button">
 								Xem tiếp
 							</a>
 							<%};%>
