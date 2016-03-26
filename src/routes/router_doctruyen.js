@@ -43,7 +43,7 @@ var router = function(){
 						for (var i = 0; i < len; i++) {
 							genres_slug[i] = slug(post.genres[i]).toLowerCase();
 						};
-						res.render('details.ejs',{post : post, genres : post.genres, genres_slug : genres_slug});
+						res.render('details.ejs',{post : post});
 					} else{
 						res.render('404.ejs',{err: 'Có cái đéo gì lỗi thì phải'});
 					}

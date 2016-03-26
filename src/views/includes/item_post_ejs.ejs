@@ -1,0 +1,29 @@
+<%for(var i = 0; i < posts.length; i++){%>
+	<div class = "item_center">
+		<div>
+			<a ng-href="/<%=posts[i].slug%>" title="<%=posts[i].name%>">
+				<img height="100px" width="80px" 
+					ng-src="/public/images/<%=posts[i].slug%>-truyen47.com.jpg" 
+					alt="<%=posts[i].name%> - Truyen47.com">
+			</a>
+		</div>
+		<div>
+			<a ng-href="/<%=posts[i].slug%>" title="<%=posts[i].name%>">
+				<h4><%=posts[i].name%></h4>
+			</a>
+			<%myDate = new Date(1000*posts[i].lastChap.id);%>
+			<i style="font-size:11px"><%=myDate.toLocaleDateString("vn-VN")%></i>
+			<p>Thể loại:
+				<%var genres = posts[i].genres%>
+				<%for(var j=0; j < genres.length; j++){%>
+				<span> 
+					<a ng-href="/danh-sach/the-loai/<%=genres[j].slug%>"><%=genres[j].name%></a> - 
+				</span>
+				<%};%>
+			</p>
+			<a ng-href="/doc-truyen/<%=post[i].lastChap.slug%>">
+				<span><%=post[i].lastChap.name%></span>
+			</a>
+		</div>
+	</div>
+<%};%>

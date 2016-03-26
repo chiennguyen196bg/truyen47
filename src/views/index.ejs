@@ -39,15 +39,20 @@
 					<div class="panel-heading"><strong>Giới thiệu truyện</strong></div>
 					<div class="panel-body">
 						<div style="float:left" class ="col-xs-4">
-							<a ng-href="/{{itemRandom.slug}}"><img ng-src="/public/images/{{itemRandom.slug}}.jpg" width="100%"></a>
+							<a ng-href="/{{itemRandom.slug}}" title="{{itemRandom.name}}">
+								<img ng-src="/public/images/{{itemRandom.slug}}-truyen47.com.jpg" width="100%">
+							</a>
 						</div>
-						<h4><a ng-href="/{{itemRandom.slug}}">{{itemRandom.name}}</a></h4>
+						<a ng-href="/{{itemRandom.slug}}" title="{{itemRandom.name}}"><h4>{{itemRandom.name}}</h4></a>
 						<p style="padding:3px;">Thể loại: <span ng-repeat="genre in itemRandom.genres">
-							<a ng-href="/danh-sach/the-loai/{{genre | slug}}">{{genre}}</a> - </span></p>
+							<a ng-href="/danh-sach/the-loai/{{genre.slug}}">{{genre.name}}</a> - </span></p>
 						<p>Nội dung: <br></p>
 						<p>{{itemRandom.summary}}</p>
-						
-						<p><a ng-href="/doc-truyen/{{itemRandom.lastChap.name | slug}}">{{itemRandom.lastChap.name}}</a></p>
+						<div ng-if="itemRandom == ''">
+							<p>Truyện tranh <strong>{{itemRandom.name}}</strong> đang được cập nhập. Mời các bạn theo dõi các chương mới
+								nhất của <strong>{{itemRandom.name}}</strong> tại trang web đọc truyện tranh online <a href="http://truyen47.com">Truyen47.com</a></p>
+						</div>
+						<p><a ng-href="/doc-truyen/{{itemRandom.lastChap.slug}}">{{itemRandom.lastChap.name}}</a></p>
 					</div>
 				</div>
 			</div>
@@ -92,27 +97,7 @@
 					<div class="panel-body">
 						<div class="tab-content">
 							<div id="moi_update" class="tab-pane fade in active">
-								<%for(var i = 0; i < posts.length; i++){%>
-								<div class = "item_center">
-									<div>
-										<a ng-href="/<%=posts[i].slug%>" title="<%=posts[i].name%>">
-											<img height="100px" width="80px" ng-src="/public/images/<%=posts[i].slug%>.jpg" alt="<%=posts[i].name%> - Truyen47.com">
-										</a>
-									</div>
-									<div>
-										<a ng-href="/<%=posts[i].slug%>" title="<%=posts[i].name%>">
-											<h4><%=posts[i].name%></h4>
-										</a>
-										<i style="font-size:11px">{{(post.lastChap.id)*1000 | date: 'dd-MM-yyyy h:mma'}}</i>
-										<p>Thể loại: 
-											<span ng-repeat="genre in post.genres"> <a ng-href="/danh-sach/the-loai/{{genre | slug}}">{{genre}}</a> - </span>
-										</p>
-										<a ng-href="/doc-truyen/{{post.lastChap.slug}}">
-											<span>{{post.lastChap.name}}</span>
-										</a>
-									</div>
-								</div>
-								<%};%>
+								<%- include('includes/item_post_ejs.ejs', { posts: posts})%>
 								<div class = "button-page">
 									<a href="/danh-sach/moi-update" class="btn btn-info pull-right" role="button">
 										Xem tiếp

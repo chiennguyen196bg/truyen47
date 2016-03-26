@@ -87,9 +87,26 @@ def crawl_truyen(url):
 					print e
 				finally:
 					f.close()
-			
-			item['author'] = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[1]/div[1]/ul/li[2]/a/text()')
-			item['genres'] = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[1]/div[1]/ul/li[3]/a/text()')
+			item['author'] = []
+			author = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[1]/div[1]/ul/li[2]/a/text()')
+			for i in xrange(0, len(author)):
+				temp = {}
+				temp['name'] = author[i]
+				temp['slug'] = slugify(author[i])
+				item['author'].append(temp)
+				del temp
+			del author
+
+			item['genres'] = []
+			genres = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[1]/div[1]/ul/li[3]/a/text()')
+			for i in xrange(0, len(genres)):
+				temp = {}
+				temp['name'] = genres[i]
+				temp['slug'] = slugify(genres[i])
+				item['genres'].append(temp)
+				del temp
+			del genres
+
 			item['status'] = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[1]/div[1]/ul/li[4]/a/text()')[0]
 
 			item['summary'] = parsed_body.xpath('/html/head/meta[10]/@content')[0]

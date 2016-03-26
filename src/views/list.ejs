@@ -48,19 +48,27 @@
 						</ul>
 					</div>
 					<div class="panel-body">
+						<%var leng = posts.length;%>
+						<%if(leng == 0){%>
 						<div ng-if="leng == 0">
 							<p>Đã hết hoặc không có mục bạn yêu cầu à :))) thông ass :))</p>
 						</div>
+						<%} else { %>
 						<div class = "item_center" ng-repeat="post in postList">
-							<%- include('includes/item_post.ejs')%>
+							<%- include('includes/item_post_ejs.ejs', { posts: posts})%>
 						</div>
+						<%};%>
 						<div class = "button-page">
-							<a ng-if="number > 1" href="/danh-sach/<%=name%>/page/{{number-1}}" class="btn btn-info pull-left" role="button">
+							<%if(number > 1){%>
+							<a href="/danh-sach/<%=slug%>/page/<%- number-1 %>" class="btn btn-info pull-left" role="button">
 								Trang trước
 							</a>
-							<a ng-if="leng == 15" ng-href="/danh-sach/<%=name%>/page/{{number+1}}" class="btn btn-info pull-right" role="button">
+							<%};%>
+							<%if(leng == 15){%>
+							<a ng-href="/danh-sach/<%=slug%>/page/<%- number+1 %>" class="btn btn-info pull-right" role="button">
 								Xem tiếp
 							</a>
+							<%};%>
 						</div>
 					</div>
 				</div>
@@ -71,14 +79,6 @@
 			</div>
 			<!-- Controllers -->
 			<script src="/public/js/Controller/genresController.js"></script>
-			<script type="text/javascript">
-				app.controller('listController', function($scope) { 
-					$scope.postList = <%-JSON.stringify(post)%>;
-					$scope.leng = $scope.postList.length;
-					$scope.number = <%=number%>;
-				});
-			</script>
 			<!-- Filters -->
-			<script src="/public/js/Filters/slugFilter.js"></script>
 		</body>
 	</html>
