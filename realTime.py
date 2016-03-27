@@ -81,7 +81,7 @@ def crawl_truyen(url):
 				print "khong lay duoc thumb"
 			else:
 				try:
-					f = open('public/images/'+item['slug']+'.jpg', 'wb', 0)
+					f = open('public/images/'+item['slug']+'-truyen47.com.jpg', 'wb', 0)
 					f.write(imgData)
 				except Exception, e:
 					print e
