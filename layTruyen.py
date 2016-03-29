@@ -24,87 +24,107 @@ db = client.admin
 
 def crawl_chapter(url):
 	"""Lay noi dung chap"""
-	try:
-		response = requests.get(url)
-	except:
-		f = open('public/urlerr.txt','a')
-		f.write(url+'\n')
-		f.close()
-	else:
-		if response.status_code == 200: # Response Code  
+	for i in xrange(0, 3):
+		try:
+			response = requests.get(url)
+			parsed_body = html.fromstring(response.text)
+			word = parsed_body.xpath('//div[@class="box container chap-container hentry"]/div/h1/text()')
+			if word == []:
+				raise NameError, "Khong lay duoc info chap"
+		except NameError, e:
+			print (e)
+		except:
+			f = open('public/urlerr.txt','a')
+			f.write(url+'\n')
+			f.close()
+		else:
 			chap = {}
-			parsed_body = html.fromstring(response.text)
-			try:
 			# lay tieu de
-				word = parsed_body.xpath('//*[@id="trang_doc"]/div[@class="hentry"]/h1/text()')
-				chap['name'] = word[0]
-				chap['slug'] = slugify(chap['name'])
-				chap['content'] = parsed_body.xpath('//div[@class="vung_doc"]/img/@src')
-				chap['_id'] = time.time()
-				db.chap.insert_one(chap)
-				return (chap['name'], chap['_id'], chap['slug'])
-			except:
-				pass
-		else:
-			print "Error:", url
+			word = parsed_body.xpath('//div[@class="box container chap-container hentry"]/div/h1/text()')
+			chap['name'] = word[0]
+			chap['slug'] = slugify(chap['name'])
+			chap['_id'] = time.time()
+			#lay noi dung
+			chap['content'] = parsed_body.xpath('//div[@class="box container chap-container hentry"]/div/div[2]/div[2]/img/@src')
+			# print chap
+			db.chap.insert_one(chap)
+			return (chap['name'], chap['_id'], chap['slug'])
+			del chap
+		time.sleep(5)
+	return None, None, None
 
-def crawl_title(url, hot = False):
-	try:
-		response = requests.get(url)
-	except:
-		f = open('public/urlerr.txt','a')
-		f.write(url+'\n')
-		f.close()
-	else:
-		if response.status_code == 200: # Response Code  
-			item = {}
+def crawl_truyen(url):
+	for x in xrange(0, 3):
+		try:
+			response = requests.get(url)
 			parsed_body = html.fromstring(response.text)
-			try:
-				item['name'] = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[1]/div[1]/ul/li[1]/h1/text()')
-				if item['name'] == []:
-					item['name'] = 'null'
-				else:
-					item['name'] = item['name'][0]
-				item['slug'] = slugify(item['name'])
-				# lay img thumb
-				try:
-					item['thumb'] = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[1]/div[1]/div/span[1]/img/@src')[0]
-					try:
-						imgData = ab.open(item['thumb']).read()
-					except:
-						f = open('public/urlerrthumb.txt','a',0)
-						f.write(item['thumb']+'\n')
-						f.close()
-					else:
-						f = open('public/images/'+item['slug']+'.jpg', 'wb')
-						f.write(imgData)
-						f.close()
-				except:
-					pass
-				
-				item['hot'] = hot
-				item['author'] = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[1]/div[1]/ul/li[2]/a/text()')
-				item['genres'] = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[1]/div[1]/ul/li[3]/a/text()')
-				item['status'] = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[1]/div[1]/ul/li[4]/a/text()')[0]
-
-				item['summary'] = parsed_body.xpath('/html/head/meta[10]/@content')[0]
-				if(item['summary'].find('Mangak.net') != -1):
-					item['summary'] = ''
-
-				item['chapter'] = []
-				list_chap = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[2]/div[2]/div/span[1]/a/@href')
-				list_chap = list_chap[::-1]
-				for urlchap in list_chap:
-					(chap_name, chap_id, chap_slug) = crawl_chapter(urlchap)
-					chap = {'name': chap_name, 'id': chap_id, 'slug': chap_slug}
-					item['chapter'].append(chap)
-				item['lastChap'] = item['chapter'][len(item['chapter'])-1]
-				return db.truyen.insert_one(item).inserted_id
-			except:
-				pass
-			
+			check = parsed_body.xpath('//div[@class="hentry"]/ul/li[2]/h1/text()')
+			if check == []:
+				raise NameError, "Khong lay duoc info truyen"
+		except NameError, e:
+			print (e)
+		except:
+			f = open('public/urlerr.txt','a')
+			f.write(url+'\n')
+			f.close()
 		else:
-			print "Error:", url
+			item = {}
+			
+			item['name'] = parsed_body.xpath('//div[@class="hentry"]/ul/li[2]/h1/text()')[0]
+			item['slug'] = slugify(item['name'])
+			# lay img thumb
+			item['thumb'] = parsed_body.xpath('//div[@class="hentry"]/ul/li[1]/div/img/@src')[0]
+			try:
+				imgData = ab.open(item['thumb']).read()
+			except:
+				print "khong lay duoc thumb"
+			else:
+				try:
+					f = open('public/images/'+item['slug']+'-truyen47.com.jpg', 'wb', 0)
+					f.write(imgData)
+				except Exception, e:
+					print e
+				finally:
+					f.close()
+			del item['thumb']
+			
+			item['author'] = []
+			author = parsed_body.xpath('//div[@class="hentry"]/ul/li[3]/span/a/text()')
+			for i in xrange(0, len(author)):
+				temp = {}
+				temp['name'] = author[i]
+				temp['slug'] = slugify(author[i])
+				item['author'].append(temp)
+				del temp
+			del author
+
+			item['genres'] = []
+			genres = parsed_body.xpath('//div[@class="hentry"]/ul/li[5]/a/text()')
+			for i in xrange(0, len(genres)):
+				temp = {}
+				temp['name'] = genres[i]
+				temp['slug'] = slugify(genres[i])
+				item['genres'].append(temp)
+				del temp
+			del genres
+
+			item['status'] = parsed_body.xpath('//div[@class="hentry"]/ul/li[6]/a/text()')[0]
+			item['summary'] = parsed_body.xpath('/html/head/meta[10]/@content')[0]
+			if(item['summary'].find('Truyentranhmoi.com') != -1):
+				item['summary'] = ''
+
+			item['chapter'] = []
+			list_chap = parsed_body.xpath('//div[@class="box chap-list"]/ul/li/a/@href')
+			# print list_chap
+			list_chap = list_chap[::-1]
+			for urlchap in list_chap:
+				(chap_name, chap_id, chap_slug) = crawl_chapter(urlchap)
+				chap = {'name': chap_name, 'id': chap_id, 'slug': chap_slug}
+				item['chapter'].append(chap)
+			item['lastChap'] = item['chapter'][len(item['chapter'])-1]
+			return db.truyen.insert_one(item).inserted_id
+			del item
+		time.sleep(5)
 
 
 def add_chap_from_list(list_chap):
