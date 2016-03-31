@@ -1,7 +1,12 @@
+
 .box{
 	padding-left: 5px;
 	padding-right: 5px;
 }
+
+.box a:visited{
+	color: #6600ff;
+};
 
 img:hover{
 	border: 1px solid red;
