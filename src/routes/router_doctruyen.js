@@ -19,7 +19,7 @@ var router = function(){
 				} else{
 				Post.findOneAndUpdate(
 					{'chapter.slug': chap_slug}, 
-					{$inc: { views: +1, viewsofWeek: +1, viewsofMonth: +1 } },
+					{$inc: { views: 1, viewsofWeek: 1, viewsofMonth: 1 } },
 					{upsert: true, new: true}
 					).exec(function(err, post){
 						if (err) {
@@ -38,7 +38,7 @@ var router = function(){
 		.get(function(req, res){
 			Post.findOneAndUpdate(
 				{'slug':req.params.post_slug},
-				{$inc: { views: +1, viewsofWeek: +1, viewsofMonth: +1 } },
+				{$inc: { views: 1, viewsofWeek: 1, viewsofMonth: 1 } },
 				{upsert: true, new: true}
 				).exec(function(err, post){
 				if (err) {
