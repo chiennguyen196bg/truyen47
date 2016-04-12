@@ -26,7 +26,7 @@ var convert = function(text){
 	else if (text == 'moi-dang')
 		return {
 			find : {},
-			sort : '-id',
+			sort : {'_id': -1},
 			realName : "Mới đăng"
 		}
 	else if (text == 'hot-update')
