@@ -12,7 +12,7 @@
 				<h4><%=posts[i].name%></h4>
 			</a>
 			<%myDate = new Date(1000*posts[i].lastChap.id);%>
-			<i style="font-size:11px"><%=myDate.toLocaleTimeString("vn-VN")%></i>
+			<i style="font-size:11px"><%-myDate.toLocaleDateString("vn-VN")%></i>
 			<p>Thể loại:
 				<%var genres = posts[i].genres%>
 				<%for(var j=0; j < genres.length; j++){%>
