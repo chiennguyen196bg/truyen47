@@ -1,5 +1,5 @@
 app.controller('topViewController', function($scope, $http) { 
-	$http.get("/json/moi-update/5")
+	$http.get("/json/top-of-week/5")
     .then(function(response) {
         $scope.itemTopTuan = response.data;
         // $scope.statuscode = response.status;
@@ -7,14 +7,14 @@ app.controller('topViewController', function($scope, $http) {
     });
 
 	$scope.clickTopTuan = function(){
-		$http.get("/json/moi-update/6")
+		$http.get("/json/top-of-week/6")
     	.then(function(response) {
         	$scope.itemTopTuan = response.data;
     	});
     };
 	
 	$scope.clickTopThang = function(){
-		$http.get("/json/moi-update/6")
+		$http.get("/json/top-of-month/6")
     	.then(function(response) {
         	$scope.itemTopThang = response.data;
     	});

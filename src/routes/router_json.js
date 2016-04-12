@@ -102,6 +102,36 @@ var router = function(){
 			});
 		});
 
+	router_json.route("/top-of-week/:num")
+		.get(function(req, res){
+			var num = Number(req.params.num);
+			Post.find().limit(num)
+			.sort({'views.week': -1})
+			.select('name slug lastChap genres')
+			.exec(function(err, posts){
+				if(err){
+					res.send('err');
+				} else {
+					res.json(posts);
+				}
+			});
+		});
+
+	router_json.route("/top-of-month/:num")
+		.get(function(req, res){
+			var num = Number(req.params.num);
+			Post.find().limit(num)
+			.sort({'views.month': -1})
+			.select('name slug lastChap genres')
+			.exec(function(err, posts){
+				if(err){
+					res.send('err');
+				} else {
+					res.json(posts);
+				}
+			});
+		});
+
 
 	
 	return router_json;

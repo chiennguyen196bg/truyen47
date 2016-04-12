@@ -32,7 +32,7 @@ var convert = function(text){
 	else if (text == 'hot-update')
 		return {
 			find : {},
-			sort : '-views',
+			sort : '-views.visited',
 			realName : "Hot update"
 		}
 	else if (text == 'hoan-thanh')
@@ -41,6 +41,12 @@ var convert = function(text){
 			sort : '-id',
 			realName : "Hoàn thành"
 		}
+	else if (text == 'xem-nhieu')
+	return {
+		find : {},
+		sort : '-views.visited',
+		realName : "Xem nhiều"
+	}
 	else{
 		return {
 			find : {},
