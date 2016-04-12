@@ -17,7 +17,11 @@ var router = function(){
 					res.render('404.ejs',{err : err});
 
 				} else{
-					Post.findOne({'chapter.slug': chap_slug}).exec(function(err, post){
+					Post.findOneAndUpdate(
+						{'chapter.slug': chap_slug},
+						{$inc: {"views.visited": 1, "views.month": 1, "views.week": 1}},
+						{upsert: true, new: true}
+						).exec(function(err, post){
 						if (err) {
 							res.render('404.ejs',{err: err});
 						} else {
@@ -32,7 +36,11 @@ var router = function(){
 		});
 	router_doctruyen.route('/:post_slug')
 		.get(function(req, res){
-			Post.findOne({'slug':req.params.post_slug}).exec(function(err, post){
+			Post.findOneAndUpdate(
+				{'slug':req.params.post_slug}, 
+				{$inc: {"views.visited": 1, "views.month": 1, "views.week": 1}},
+				{upsert: true, new: true}
+				).exec(function(err, post){
 				if (err) {
 					res.render('404.ejs',{err : err});
 				}
