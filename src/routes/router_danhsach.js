@@ -139,6 +139,7 @@ var router = function(){
 				}
 			});
 		});
+		
 	router_danhsach.route('/tac-gia/:slug/page/:num')
 		.get(function(req, res){
 			var slug = req.params.slug;
@@ -165,6 +166,7 @@ var router = function(){
 				}
 			});
 		});
+
 
 		//Chung
 	router_danhsach.route('/:name')

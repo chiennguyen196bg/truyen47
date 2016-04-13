@@ -21,7 +21,7 @@ var router = function(){
 						{'chapter.slug': chap_slug},
 						{$inc: {"views.visited": 1, "views.month": 1, "views.week": 1}},
 						{new: true}
-						).exec(function(err, post){
+					).exec(function(err, post){
 						if (err) {
 							res.render('404.ejs',{err: err});
 						} else {
@@ -40,7 +40,7 @@ var router = function(){
 				{'slug':req.params.post_slug}, 
 				{$inc: {"views.visited": 1, "views.month": 1, "views.week": 1}},
 				{new: true}
-				).exec(function(err, post){
+			).exec(function(err, post){
 				if (err) {
 					res.render('404.ejs',{err : err});
 				}
@@ -53,7 +53,7 @@ var router = function(){
 						};
 						res.render('details.ejs',{post : post});
 					} else{
-						res.render('404.ejs',{err: 'Có cái đéo gì lỗi thì phải'});
+						res.render('404.ejs',{err: 'Có lỗi xảy ra!'});
 					}
 				}
 			});
