@@ -38,7 +38,7 @@ var convert = function(text){
 	else if (text == 'hoan-thanh')
 		return {
 			find : {'status':"Hoàn thành"},
-			sort : '-id',
+			sort : {'_id': -1},
 			realName : "Hoàn thành"
 		}
 	else if (text == 'xem-nhieu')
@@ -50,7 +50,7 @@ var convert = function(text){
 	else{
 		return {
 			find : {},
-			sort : '-id',
+			sort : {'_id': -1},
 			realName : text
 		}
 	}
@@ -59,6 +59,7 @@ var convert = function(text){
 
 var router = function(){
 
+	//the loai
 	router_danhsach.route('/the-loai/:slug')
 		.get(function(req, res){
 			var slug = req.params.slug;
@@ -84,6 +85,7 @@ var router = function(){
 				}
 			});
 		});
+
 	router_danhsach.route('/the-loai/:slug/page/:num')
 		.get(function(req, res){
 			var slug = req.params.slug;
@@ -111,6 +113,60 @@ var router = function(){
 			});
 		});
 
+	//tac gia
+	router_danhsach.route('/tac-gia/:slug')
+		.get(function(req, res){
+			var slug = req.params.slug;
+			var realName = reslug(slug);
+			var arg = {'author.slug' : slug}
+			Post.find(arg)
+			.limit(15)
+			.sort({'_id': -1})
+			.select('name genres lastChap.name lastChap.id thumb lastChap.date _id slug lastChap.slug')
+			.exec(function(err, posts){
+				if (err) {
+					res.render('404.ejs',{err : err});
+					
+				}
+				else {
+					res.render('list.ejs', {
+						posts : posts, 
+						number : 1, 
+						slug : slug, 
+						title: "Tác giả " + realName, 
+						link: '/tac-gia'
+					});
+				}
+			});
+		});
+	router_danhsach.route('/tac-gia/:slug/page/:num')
+		.get(function(req, res){
+			var slug = req.params.slug;
+			var num = Number(req.params.num);
+			var realName = reslug(slug);
+			var arg = {'author.slug' : slug}
+			Post.find(arg)
+			.skip((num -1)*15)
+			.limit(15)
+			.sort({'_id': -1})
+			.select('name genres lastChap.name lastChap.id thumb lastChap.date _id slug lastChap.slug')
+			.exec(function(err, posts){
+				if (err) {
+					res.render('404.ejs',{err : err});
+				}
+				else {
+					res.render('list.ejs', {
+						posts : posts, 
+						number : num, 
+						slug : slug, 
+						title: "Tác giả " + realName + ' - trang '+num, 
+						link: '/tac-gia'
+					});
+				}
+			});
+		});
+
+		//Chung
 	router_danhsach.route('/:name')
 		.get(function(req, res){
 			var name = req.params.name;
