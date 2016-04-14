@@ -1,7 +1,8 @@
 #!/bin/bash
 while :
 do
-	python realTime2.py
+	clear
+	python realTime2.pyc
 	echo "Done"
 	sleep 20m
 done
