@@ -110,8 +110,13 @@ def crawl_truyen(url):
 
 			item['chapter'] = []
 			list_chap = parsed_body.xpath('//*[@id="main_body"]/div[2]/div/div[2]/div[2]/div[2]/div/span[1]/a/@href')
-			print item
-			print list_chap
+			list_chap = list_chap[::-1]
+			for urlchap in list_chap:
+				(chap_name, chap_id, chap_slug) = crawl_chapter(urlchap)
+				chap = {'name': chap_name, 'id': chap_id, 'slug': chap_slug}
+				item['chapter'].append(chap)
+			item['lastChap'] = item['chapter'][len(item['chapter'])-1]
+			return db.truyen.insert_one(item).inserted_id
 		time.sleep(5)
 
 
