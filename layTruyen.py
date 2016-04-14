@@ -19,6 +19,11 @@ import mech
 ab = mech.anonBrowser(proxies=[],\
 			user_agents=[('user_agent', 'superSecretBroser')])
 
+import pymongo
+from pymongo import MongoClient
+client = MongoClient('mongodb://localhost:27017/')
+db = client.admin
+
 
 def crawl_chapter(url):
 	"""Lay noi dung chap"""
@@ -120,6 +125,8 @@ def crawl_truyen(url):
 		time.sleep(5)
 
 
+
 if __name__ == '__main__':
 	url = raw_input("url: ")
-	crawl_truyen(url)
+	info = crawl_truyen(url)
+	print info
