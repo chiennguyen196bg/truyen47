@@ -172,4 +172,4 @@ def lay_list_chap(i):
 
 if __name__ == '__main__':
 	url = raw_input("url: ")
-	crawl_title(url)
+	crawl_truyen(url)
