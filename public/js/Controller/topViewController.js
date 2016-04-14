@@ -1,5 +1,5 @@
 app.controller('topViewController', function($scope, $http) { 
-	$http.get("/json/top-of-week/5")
+	$http.get("/json/top-of-week/6")
     .then(function(response) {
         $scope.itemTopTuan = response.data;
         // $scope.statuscode = response.status;
