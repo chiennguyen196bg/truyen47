@@ -59,7 +59,7 @@
 			
 			<div id="fanpage" class="col-sm-12 col-md-4" style="padding-right=0;">
 				<!-- <div class="panel panel-default"> -->
-				<div class="hidden-xs hidden-sm">
+				<div class=".hidden-sm-down">
 					<script type="text/javascript">
 					  ( function() {
 					    if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
@@ -71,16 +71,19 @@
 					</script>
 					<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
 				</div>
-				<div class="hidden-md hidden-lg">
+				
+				<!-- Dien thoai -->
+				<div class="hidden-md-up">
 					<script type="text/javascript">
-					( function() {
-					    CHITIKA = window.CHITIKA ? window.CHITIKA : { 'units' : [] };
-					    CHITIKA.publisher = 'chien196bg';
-					    var s = document.createElement('script');
-					    s.src = '//cdn.chitika.net/getads.js';
-					    try { document.getElementsByTagName('head')[0].appendChild(s); } catch(e) { document.write(s.outerHTML); }
+					  ( function() {
+					    if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
+					    var unit = {"calltype":"async[2]","publisher":"chien196bg","width":300,"height":150,"sid":"Chitika Default"};
+					    var placement_id = window.CHITIKA.units.length;
+					    window.CHITIKA.units.push(unit);
+					    document.write('<div id="chitikaAdBlock-' + placement_id + '"></div>');
 					}());
 					</script>
+					<script type="text/javascript" src="//cdn.chitika.net/getads.js" async></script>
 				</div>
 				<!-- </div> -->
 			</div>
