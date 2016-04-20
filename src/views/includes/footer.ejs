@@ -9,3 +9,24 @@
 		</div>
 	</footer>
 </div>
+<script src="/public/js/fuckadblock.js"></script>
+<script type="text/javascript">
+	function adBlockNotDetected() {
+	    //alert('AdBlock is not enabled');
+	}
+	function adBlockDetected() {
+    	alert('Hệ thống nhận thấy rằng bạn đang dùng plugin AdBlock Plus. Để ủng hộ truyen47.com bạn có thể tạm tắt plugin đó đối với website truyen47.com và lâu lâu hãy nhấp vào quảng cáo giúp chúng tớ nhé. Thanks !!!');
+	}
+
+	if(typeof fuckAdBlock === 'undefined') {
+    	adBlockDetected();
+	} else {
+	    fuckAdBlock.onDetected(adBlockDetected);
+	    fuckAdBlock.onNotDetected(adBlockNotDetected);
+	    // and|or
+	    fuckAdBlock.on(true, adBlockDetected);
+	    fuckAdBlock.on(false, adBlockNotDetected);
+	    // and|or
+	    fuckAdBlock.on(true, adBlockDetected).onNotDetected(adBlockNotDetected);
+	}
+</script>
